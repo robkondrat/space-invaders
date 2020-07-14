@@ -7,6 +7,8 @@ class Player {
     this.isMovingLeft = false;
     this.isMovingRight = false;
     this.bullets = [];
+    this.lives = 3;
+    this.score = 0;
   }
 
   update() {
@@ -27,6 +29,7 @@ class Player {
 
       if (this.hasHitAlien(this.bullets[i])) {
         this.bullets.splice(i, 1);
+        this.score += 10;
         break;
       } else if (this.bullets[i].isOffScreen()) {
         this.bullets.splice(i, 1);
@@ -51,6 +54,9 @@ class Player {
     image(this.image, this.x, this.y, this.image.width / 20, this.image.height / 20);
 
     this.drawBullets();
+
+    this.drawLives();
+    this.drawScore();
   }
 
   drawBullets() {
