@@ -12,7 +12,7 @@ class Invaders {
     this.timeSinceLastBullet = 0;
   }
 
-  update() {
+  update(player) {
     for (let alien of this.aliens) {
       if (this.direction == 0) {
         alien.x += this.speed;
@@ -38,7 +38,7 @@ class Invaders {
     }
     this.timeSinceLastBullet++;
 
-    this.updateBullets();
+    this.updateBullets(player);
   }
 
   hasChangedDirection() {
@@ -136,9 +136,16 @@ class Invaders {
     this.timeSinceLastBullet = 0;
   }
 
-  updateBullets() {
+  updateBullets(player) {
     for (let i = this.bullets.length - 1; i >= 0; i--) {
       this.bullets[i].y += 2;
+
+      if (this.bullets[i].hasHit(player)) {
+        player.lives --;
+
+        this.bullets.splice(i, 1);
+      }
     }
   }
+
 }
